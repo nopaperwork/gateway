@@ -62,13 +62,13 @@
 			<artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
 		</dependency>
 
-		<!-- Dev Tools -->
-		<dependency>
+		<!-- Dev Tools : Dependency must be removed during Production Deployment -->
+		<!-- dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
+		</!dependency -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

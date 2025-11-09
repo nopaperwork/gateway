@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS request_audit_log (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create indexes for performance
-CREATE INDEX idx_routes_enabled ON gateway_routes(enabled);
-CREATE INDEX idx_blacklist_ip ON ip_blacklist(ip_address);
-CREATE INDEX idx_audit_created ON request_audit_log(created_at DESC);
-CREATE INDEX idx_audit_route ON request_audit_log(route_id);
+-- Create indexes for performance (Made Idempotent)
+CREATE INDEX IF NOT EXISTS idx_routes_enabled ON gateway_routes(enabled);
+CREATE INDEX IF NOT EXISTS idx_blacklist_ip ON ip_blacklist(ip_address);
+CREATE INDEX IF NOT EXISTS idx_audit_created ON request_audit_log(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_audit_route ON request_audit_log(route_id);
 
 -- Sample Routes Data
 INSERT INTO gateway_routes (route_id, uri, path, method, rate_limit_requests, rate_limit_period_seconds, description) 
