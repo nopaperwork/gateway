@@ -6,19 +6,21 @@
  */
 package com.nopaper.work.gateway.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
+import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
+
 /**
  * 
  */
 
 import io.r2dbc.spi.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
-import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
-import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 
 /**
  * Database configuration for R2DBC.
@@ -31,6 +33,7 @@ import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 @Slf4j
 @Configuration
 @EnableR2dbcAuditing
+@EnableR2dbcRepositories(basePackages = "com.nopaper.work.gateway.repositories") // <-- ADD THIS LINE
 public class DatabaseConfiguration {
     
     @Value("classpath:schema.sql")

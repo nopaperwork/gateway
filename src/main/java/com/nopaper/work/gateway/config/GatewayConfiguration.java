@@ -24,7 +24,6 @@ import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -32,7 +31,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.nopaper.work.gateway.dto.CustomRouteDefinitionDTO;
 
 
 /**
@@ -100,7 +98,7 @@ public class GatewayConfiguration {
     /**
      * Configure reactive Redis template for manual Redis operations.
      */
-    @Bean
+    @Bean("reactiveRedisTemplate") // Explicitly name the bean
     public ReactiveRedisTemplate<String, String> reactiveRedisTemplate(
             ReactiveRedisConnectionFactory factory) {
         // Key serializer
@@ -121,6 +119,11 @@ public class GatewayConfiguration {
     /*
      * For caching DTOs or JSON values (recommended for complex objects):
      */
+    /*
+     * Removed the unused 'dtoRedisTemplate' bean for CustomRouteDefinitionDTO
+     * to reduce confusion. The @Cacheable-based CacheManager is used instead.
+     */
+    /*
     @Bean
     public ReactiveRedisTemplate<String, CustomRouteDefinitionDTO> dtoRedisTemplate(
             ReactiveRedisConnectionFactory factory) {
@@ -137,7 +140,7 @@ public class GatewayConfiguration {
 
         return new ReactiveRedisTemplate<>(factory, context);
     }
-    
+    */
     /**
      * Configure async task executor for @Async methods.
      * Used for asynchronous audit logging.
